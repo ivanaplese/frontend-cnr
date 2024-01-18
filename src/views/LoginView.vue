@@ -70,6 +70,6 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    text-align: center;
 }
 </style>
-  

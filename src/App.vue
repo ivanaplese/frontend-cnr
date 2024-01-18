@@ -1,11 +1,32 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/register">Register</router-link>
-  </nav>
-  <router-view />
+  <div id="app">
+    <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">cars 'n' rides</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link to="/pretraži" class="nav-link active" aria-current="page">Pretraži</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/dodaj" class="nav-link active" aria-current="page">Dodaj</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/login" class="nav-link">Login</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/register" class="nav-link">Register</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <style lang="scss">
@@ -14,21 +35,17 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: black;
-  margin-top: 60px;
+  color: white;
+  background-color: black;
+  margin-top: 0;
 }
 
-nav {
-  padding: 30px;
+.nav-link {
+  font-weight: bold;
+  color: black !important;
+}
 
-  a {
-    font-weight: bold;
-    color: black;
-    margin-right: 10px;
-
-    &.router-link-exact-active {
-      color: green;
-    }
-  }
+.nav-link.router-link-exact-active {
+  color: green !important;
 }
 </style>
