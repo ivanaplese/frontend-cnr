@@ -41,8 +41,9 @@ export default {
     },
 };
 </script>
-  
-<style scoped>
+ 
+ 
+<style >
 .auth-container {
     color: white;
     background-color: black;

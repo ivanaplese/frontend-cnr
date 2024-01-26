@@ -66,4 +66,67 @@ export default {
 .nav-link.router-link-exact-active {
   color: green !important;
 }
+
+body {
+  background-color: black;
+  color: white;
+}
+
+.container {
+  background-color: black;
+  color: white;
+}
+
+.form-label {
+  color: white;
+}
+
+.form-control {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+body {
+  background-color: black;
+  color: white;
+}
+
+.container {
+  background-color: black;
+  color: white;
+}
+
+.form-label {
+  color: white;
+}
+
+.form-control {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.btn {
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
 </style>

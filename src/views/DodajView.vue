@@ -44,34 +44,3 @@ export default {
     },
 };
 </script>
-<style scoped>
-.auth-container {
-    color: white;
-    background-color: black;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px;
-}
-
-
-label {
-    margin-bottom: 10px;
-    display: block;
-}
-
-input {
-    margin-bottom: 20px;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-button {
-    background-color: green;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-</style> 

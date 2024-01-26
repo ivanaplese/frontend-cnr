@@ -10,7 +10,7 @@
     </div>
 </template>
   
-<style scoped>
+<style >
 .home-container {
     display: flex;
     flex-direction: column;

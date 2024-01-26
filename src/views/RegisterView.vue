@@ -42,8 +42,7 @@ export default {
 };
 </script>
   
-<style scoped>
-/* Same styling as Login.vue */
+<style >
 .auth-container {
     color: white;
     background-color: black;
