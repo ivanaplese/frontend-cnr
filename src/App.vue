@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav id="nav" class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav id="nav" v-if="showNavbar" class="navbar navbar-expand-lg bg-body-tertiary">>
       <div class="container-fluid">
         <a class="navbar-brand" href="#">cars 'n' rides</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -9,6 +9,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link to="/" class="nav-link active" aria-current="page">Home</router-link>
+            </li>
             <li class="nav-item">
               <router-link to="/pretraži" class="nav-link active" aria-current="page">Pretraži</router-link>
             </li>
@@ -28,6 +31,21 @@
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      showNavbar: true,
+    };
+  },
+  watch: {
+    $route(to) {
+      this.showNavbar = to.name !== 'home';
+    },
+  },
+};
+</script>
 
 <style lang="scss">
 #app {

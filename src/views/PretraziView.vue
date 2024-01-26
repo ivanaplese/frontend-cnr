@@ -19,6 +19,9 @@
 
       <button type="submit" class="btn btn-primary">Pretraži</button>
     </form>
+    <div v-if="nemaVoznji" class="mt-4">
+      <p>Nema dodanih vožnji u odabranom periodu.</p>
+    </div>
   </div>
 </template>
 
@@ -29,12 +32,15 @@ export default {
       polaziste: "",
       odrediste: "",
       datum: "",
+      nemaVoznji: false,
     };
   },
   methods: {
     pretrazi() {
       // Implementirajte logiku za pretragu sa izabranim opcijama (this.polaziste, this.odrediste, this.datum)
       console.log("Pretraga:", this.polaziste, this.odrediste, this.datum);
+
+      this.nemaVoznji = true;
     },
   },
 };
@@ -69,4 +75,51 @@ button {
   cursor: pointer;
   text-align: center;
 }
-</style> 
+</style>
+
+
+
+<!-- 
+import { store } from "./store.js";
+
+
+export default {
+  data() {
+    return {
+      polaziste: "",
+      odrediste: "",
+      datum: "",
+    };
+  },
+  computed: {
+    addedRide() {
+      return store.state.addedRide;
+    },
+    ridesMessage() {
+      const ridesInPeriod = store.getRidesInPeriod(new Date(2024, 8, 8));
+      return ridesInPeriod.length > 0 ? 'Vožnja u odabranom periodu pronađena.' : 'Nema vožnje u odabranom periodu.';
+    },
+  },
+  methods: {
+    pretrazi() {
+      const ride = {
+        polaziste: this.polaziste,
+        odrediste: this.odrediste,
+        datum: this.datum
+      };
+
+      store.addRide(ride);
+      store.setAddedRide(ride);
+
+      const start = new Date(2024, 8, 8);
+      const end = new Date(start);
+      end.setDate(end.getDate() + 1);
+
+      const ridesInPeriod = store.getRidesInPeriod(start, end);
+
+      console.log('Pretraga:', this.polaziste, this.odrediste, this.datum);
+      console.log('Rides in period:', ridesInPeriod);
+    },
+  },
+};
+</script> -->
