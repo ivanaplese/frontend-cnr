@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="auth-container">
         <h2>Register</h2>
         <form @submit.prevent="register">
@@ -11,9 +11,60 @@
             <button type="submit">Register</button>
         </form>
     </div>
-</template>
+</template> -->
   
-<script>
+<template>
+    <div class="auth-container">
+      <h2>Register</h2>
+      <form @submit.prevent="register">
+        <label for="username">Username:</label>
+        <input type="text" v-model="formData.username" required />
+  
+        <label for="password">Password:</label>
+        <input type="password" v-model="formData.password" required />
+  
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </template>
+  
+  <script>
+  import axios from 'axios';
+  
+  export default {
+    data() {
+      return {
+        formData: {
+          username: '',
+          password: ''
+        }
+      };
+    },
+    methods: {
+      async register() {
+        try {
+          const response = await axios.post('http://localhost:3000/api/register', {
+            username: this.formData.username,
+            password: this.formData.password
+          });
+  
+          console.log('Registration successful', response.data);
+          // Dodajte redirekciju ili poruku o uspješnoj registraciji
+        } catch (error) {
+          console.error('Registration failed', error);
+          // Dodajte prikaz poruke o grešci korisniku
+        }
+      }
+    }
+  };
+  </script>
+  
+
+
+<!-- // stara skripta -->
+<!-- <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -26,7 +77,7 @@ export default {
             // Send register request to the server using Axios
             try {
                 // Use your server endpoint for registration
-                const response = await this.$axios.post("/api/register", {
+                const response = await axios.post("/api/register", {
                     username: this.username,
                     password: this.password,
                 });
@@ -40,8 +91,11 @@ export default {
         },
     },
 };
-</script>
-  
+</script> -->
+
+
+
+
 <style >
 .auth-container {
     color: white;
