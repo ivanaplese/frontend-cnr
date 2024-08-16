@@ -18,12 +18,30 @@
             <li class="nav-item">
               <router-link to="/dodaj" class="nav-link active" aria-current="page">Dodaj</router-link>
             </li>
-            <li class="nav-item">
+
+             <!-- Prikaži samo ako je korisnik prijavljen -->
+             <li class="nav-item" v-if="isLoggedIn">
+              <span class="nav-link">Welcome, {{ username }}!</span>
+            </li>
+            <li class="nav-item" v-if="isLoggedIn">
+              <a href="#" @click="logout" class="nav-link">Logout</a>
+            </li>
+
+            <!-- Prikaži samo ako korisnik NIJE prijavljen -->
+            <li class="nav-item" v-if="!isLoggedIn">
+              <router-link to="/login" class="nav-link">Login</router-link>
+            </li>
+            <li class="nav-item" v-if="!isLoggedIn">
+              <router-link to="/register" class="nav-link">Register</router-link>
+            </li>
+
+
+            <!-- <li class="nav-item">
               <router-link to="/login" class="nav-link">Login</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/register" class="nav-link">Register</router-link>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -37,8 +55,45 @@ export default {
   data() {
     return {
       showNavbar: true,
+      username: "", // Sprema korisničko ime
+      isLoggedIn: false, // Provjerava je li korisnik prijavljen
     };
   },
+  mounted() {
+    // Provjeri je li korisnik prijavljen na početku
+    this.checkLoginStatus();
+
+    this.$router.afterEach(() => {
+    this.checkLoginStatus();
+  });
+  },
+  methods: {
+    checkLoginStatus() {
+      const token = localStorage.getItem("authToken");
+      const username = localStorage.getItem("username"); // Spremljeno korisničko ime
+
+      if (token && username) {
+        this.isLoggedIn = true;
+        this.username = username;
+      } else {
+        this.isLoggedIn = false;
+        this.username = "";
+      }
+    },
+    logout() {
+      // Ukloni token i korisničko ime iz localStorage
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("username");
+
+      // Resetiraj stanje aplikacije
+      this.isLoggedIn = false;
+      this.username = "";
+
+      // Preusmjeri na početnu stranicu
+      this.$router.push({ name: 'home' });
+    },
+  },
+
   watch: {
     $route(to) {
       this.showNavbar = to.name !== 'home';
@@ -61,6 +116,9 @@ export default {
 .nav-link {
   font-weight: bold;
   color: black !important;
+}
+span.nav-link {
+  color: green !important; // Posebno istakni korisničko ime
 }
 
 .nav-link.router-link-exact-active {

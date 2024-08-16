@@ -247,31 +247,59 @@ export default {
       };
     },
     methods: {
-      async dodajVoznju() {
-        this.voznjaDodana = false;
-        this.errorMessage = "";
+      // async dodajVoznju() {
+      //   this.voznjaDodana = false;
+      //   this.errorMessage = "";
   
-        if (!this.isUserLoggedIn()) {
-          this.errorMessage = "Morate se prvo registrirati kako biste dodali vožnju.";
-          return;
-        }
+      //   if (!this.isUserLoggedIn()) {
+      //     this.errorMessage = "Morate se prvo prijaviti kako biste dodali vožnju.";
+      //     return;
+      //   }
   
-        try {
-          const authToken = localStorage.getItem("authToken");
-          const response = await axios.post("http://localhost:3000/voznja", this.voznja, {
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-            },
-          });
+      //   try {
+      //     const authToken = localStorage.getItem("authToken");
+      //     const response = await axios.post("http://localhost:3000/voznja", this.voznja, {
+      //       headers: {
+      //         Authorization: `Bearer ${authToken}`,
+      //       },
+      //     });
   
-          if (response.status === 201) {
-            this.voznjaDodana = true;
-          }
-        } catch (error) {
-          this.errorMessage = "Dodavanje vožnje nije uspjelo. Pokušajte ponovno.";
-          console.error(error);
-        }
-      },
+      //     if (response.status === 201) {
+      //       this.voznjaDodana = true;
+      //     }
+      //   } catch (error) {
+      //     this.errorMessage = "Dodavanje vožnje nije uspjelo. Pokušajte ponovno.";
+      //     console.error(error);
+      //   }
+      // },
+      dodajVoznju() {
+  this.voznjaDodana = false;
+  this.errorMessage = "";
+
+  if (!this.isUserLoggedIn()) {
+    this.errorMessage = "Morate se prvo registrirati kako biste dodali vožnju.";
+    return;
+  }
+
+  const token = localStorage.getItem("authToken");
+
+  axios.post("http://localhost:3000/voznja", {
+    origin: this.voznja.polaziste,
+      destination: this.voznja.odrediste,
+      date: `${this.voznja.datum}T${this.voznja.vrijeme}`
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }).then(response => {
+    this.voznjaDodana = true;
+    console.log("Vožnja uspješno dodana:", response.data);
+  }).catch(error => {
+    this.errorMessage = "Nešto je pošlo po zlu. Pokušajte ponovo.";
+    console.error("Greška prilikom dodavanja vožnje:", error);
+  });
+},
+
       isUserLoggedIn() {
         return !!localStorage.getItem("authToken");
       },

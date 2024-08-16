@@ -88,6 +88,7 @@ button {
         <button type="submit">Login</button>
       </form>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      <p v-if="successMessage" class="success">{{ successMessage }}</p>
     </div>
   </template>
   
@@ -97,25 +98,57 @@ button {
       return {
         username: "",
         password: "",
-        errorMessage: ""
+        errorMessage: "",
+        successMessage: ""
       };
     },
     methods: {
-      async login() {
-        try {
-          const response = await this.$axios.post("http://localhost:3000/login", {
-            username: this.username,
-            password: this.password,
-          });
+      // async login() {
+      //   try {
+      //     const response = await this.$axios.post("http://localhost:3000/login", {
+      //       username: this.username,
+      //       password: this.password,
+      //     });
   
-          this.errorMessage = '';  // Clear any previous error messages
-          console.log("Login successful", response.data);
-          // Handle successful login (redirect, store token, etc.)
-        } catch (error) {
-          this.errorMessage = 'Login failed. Please check your username and password.';
-          console.error("Login failed", error);
-        }
-      },
+      //     this.errorMessage = '';  // Clear any previous error messages
+      //     console.log("Login successful", response.data);
+      //     // Handle successful login (redirect, store token, etc.)
+      //   } catch (error) {
+      //     this.errorMessage = 'Login failed. Please check your username and password.';
+      //     console.error("Login failed", error);
+      //   }
+      // },
+      async login() {
+  try {
+    const response = await this.$axios.post("http://localhost:3000/login", {
+      username: this.username,
+      password: this.password,
+    });
+
+    // Spremi token u localStorage + username
+    localStorage.setItem("authToken", response.data.token);
+    localStorage.setItem("username", this.username);
+
+
+      // Osvježi stanje aplikacije
+      this.checkLoginStatus();
+      
+    this.errorMessage = '';  // Očisti prethodne greške
+    this.successMessage = 'Login successful!'; 
+    console.log("Login successful", response.data);
+
+    // this.$router.push({ name: 'home' });
+    setTimeout(() => {
+          this.$router.push({ name: 'home' });
+        }, 2000);
+
+  } catch (error) {
+    this.successMessage = ''; // Očisti uspješnu poruku
+    this.errorMessage = 'Login failed. Please check your username and password.';
+    console.error("Login failed", error);
+  }
+},
+
     },
   };
   </script>
