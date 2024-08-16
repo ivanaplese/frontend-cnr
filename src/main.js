@@ -10,6 +10,7 @@ import axios from 'axios'
 
 axios.defaults.baseURL = 'https://cars-n-rides-backend.vercel.app';
 
+
 // Stvori Vue aplikaciju
 const app = createApp(App);
 

@@ -103,7 +103,7 @@ button {
     methods: {
       async login() {
         try {
-          const response = await this.$axios.post("/api/login", {
+          const response = await this.$axios.post("http://localhost:3000/login", {
             username: this.username,
             password: this.password,
           });
