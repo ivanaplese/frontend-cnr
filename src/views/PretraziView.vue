@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     pretrazi() {
-      // Implementirajte logiku za pretragu sa izabranim opcijama (this.polaziste, this.odrediste, this.datum)
+  
       console.log("Pretraga:", this.polaziste, this.odrediste, this.datum);
 
       this.nemaVoznji = true;
