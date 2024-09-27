@@ -1,99 +1,101 @@
 <template>
-    <div class="auth-container">
-      <h2>Login</h2>
-      <form @submit.prevent="login">
-        <label for="username">Username:</label>
-        <input type="text" v-model="username" required />
-  
-        <label for="password">Password:</label>
-        <input type="password" v-model="password" required />
-  
-        <button type="submit">Login</button>
-      </form>
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-      <p v-if="successMessage" class="success">{{ successMessage }}</p>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        username: "",
-        password: "",
-        errorMessage: "",
-        successMessage: ""
-      };
-    },
-    methods: {
-      async login() {
-  try {
-    const response = await this.$axios.post("http://localhost:3000/login", {
-      username: this.username,
-      password: this.password,
-    });
+  <div class="auth-container">
+    <h2>Login</h2>
+    <form @submit.prevent="login">
+      <label for="username">Username:</label>
+      <input type="text" v-model="username" required />
 
-    // Spremi token u localStorage + username
-    localStorage.setItem("authToken", response.data.token);
-    localStorage.setItem("username", this.username);
+      <label for="password">Password:</label>
+      <input type="password" v-model="password" required />
 
+      <button type="submit">Login</button>
+    </form>
+    <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+    <p v-if="successMessage" class="success">{{ successMessage }}</p>
+  </div>
+</template>
 
-      // Osvježi stanje aplikacije
-      this.checkLoginStatus();
-      
-    this.errorMessage = '';  // Očisti prethodne greške
-    this.successMessage = 'Login successful!'; 
-    console.log("Login successful", response.data);
+<script>
+export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+      errorMessage: "",
+      successMessage: ""
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await this.$axios.post("http://localhost:8080/api/login", {
+          username: this.username,
+          password: this.password
+        });
 
-    // this.$router.push({ name: 'home' });
-    setTimeout(() => {
+        // Save token and username to localStorage
+        localStorage.setItem("authToken", response.data.token);
+        localStorage.setItem("username", this.username);
+
+        // Clear error message and display success message
+        this.errorMessage = '';
+        this.successMessage = 'Login successful!';
+        console.log("Login successful", response.data);
+
+        // Redirect to home page after 2 seconds
+        setTimeout(() => {
           this.$router.push({ name: 'home' });
         }, 2000);
 
-  } catch (error) {
-    this.successMessage = ''; // Očisti uspješnu poruku
-    this.errorMessage = 'Login failed. Please check your username and password.';
-    console.error("Login failed", error);
+      } catch (error) {
+        // Clear success message and display error message
+        console.log(error);
+        this.successMessage = '';
+        this.errorMessage = 'Login failed. Please check your username and password.';
+        console.error("Login failed", error);
+      }
+    }
   }
-},
+};
+</script>
 
-    },
-  };
-  </script>
-  
-  <style>
-  .auth-container {
-    color: white;
-    background-color: black;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 20px;
-
+<style>
+.auth-container {
+  color: white;
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
 }
 
 label {
-    margin-bottom: 10px;
-    display: block;
+  margin-bottom: 10px;
+  display: block;
 }
 
 input {
-    margin-bottom: 20px;
-    padding: 5px;
-    border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 button {
-    background-color: green;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
+  background-color: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
 }
-  /* Existing styles... */
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
-  </style>
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+}
+</style>
