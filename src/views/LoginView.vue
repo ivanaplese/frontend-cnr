@@ -36,7 +36,7 @@ export default {
         // Save token and username to localStorage
         localStorage.setItem("authToken", response.data.token);
         localStorage.setItem("username", this.username);
-        localStorage.setItem('userId', user.id); // Ovo je user ID nakon prijave
+        
 
         // Clear error message and display success message
         this.errorMessage = '';

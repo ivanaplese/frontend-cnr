@@ -27,10 +27,6 @@
               <span class="nav-link">Welcome, {{ username }}!</span>
             </li>
 
-            <!-- Add Profile link here -->
-<li class="nav-item" v-if="isLoggedIn">
-  <router-link to="/profile" class="nav-link">Profile</router-link>
-</li>
 
             <li class="nav-item" v-if="isLoggedIn">
               <a href="#" @click="logout" class="nav-link">Logout</a>

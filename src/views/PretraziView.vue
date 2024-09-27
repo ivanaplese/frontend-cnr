@@ -32,15 +32,28 @@ export default {
       polaziste: "",
       odrediste: "",
       datum: "",
+      rides: [],
       nemaVoznji: false,
     };
   },
   methods: {
-    pretrazi() {
-  
+    async pretrazi() {
       console.log("Pretraga:", this.polaziste, this.odrediste, this.datum);
-
-      this.nemaVoznji = true;
+      this.nemaVoznji = false; // Reset this before the search
+      try {
+        const response = await this.$axios.get('/api/voznja', {
+          params: {
+            origin: this.polaziste,
+            destination: this.odrediste,
+            date: this.datum,
+          }
+        });
+        this.rides = response.data;
+        this.nemaVoznji = this.rides.length === 0; // Set this if no rides are found
+      } catch (error) {
+        console.error("Error fetching rides:", error);
+        this.nemaVoznji = true; // Show no rides message on error
+      }
     },
   },
 };
