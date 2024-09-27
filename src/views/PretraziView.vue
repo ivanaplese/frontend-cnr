@@ -7,6 +7,7 @@
         <input v-model="polaziste" type="text" class="form-control" id="polaziste" required>
       </div>
 
+
       <div class="mb-3">
         <label for="odrediste" class="form-label">Unesite odredište:</label>
         <input v-model="odrediste" type="text" class="form-control" id="odrediste" required>
@@ -19,6 +20,16 @@
 
       <button type="submit" class="btn btn-primary">Pretraži</button>
     </form>
+
+    <div v-if="rides.length > 0" class="mt-4">
+      <h2>Rezultati pretrage:</h2>
+      <ul>
+        <li v-for="ride in rides" :key="ride._id">
+          Polazište: {{ ride.origin }} | Odredište: {{ ride.destination }} | Datum: {{ new Date(ride.date).toLocaleDateString() }}
+        </li>
+      </ul>
+    </div>
+
     <div v-if="nemaVoznji" class="mt-4">
       <p>Nema dodanih vožnji u odabranom periodu.</p>
     </div>
@@ -26,39 +37,50 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       polaziste: "",
       odrediste: "",
       datum: "",
-      rides: [],
-      nemaVoznji: false,
+      rides: [], // To store fetched rides
+      nemaVoznji: false, // To display a message if no rides are found
     };
   },
+
   methods: {
     async pretrazi() {
-      console.log("Pretraga:", this.polaziste, this.odrediste, this.datum);
-      this.nemaVoznji = false; // Reset this before the search
       try {
-        const response = await this.$axios.get('/api/voznja', {
+        // Make a GET request to the backend
+        const response = await axios.get("http://localhost:8080/api/voznja", {
           params: {
             origin: this.polaziste,
             destination: this.odrediste,
             date: this.datum,
-          }
+          },
         });
+
+        // Store the rides in the state
         this.rides = response.data;
-        this.nemaVoznji = this.rides.length === 0; // Set this if no rides are found
+
+        // Check if no rides were found
+        if (this.rides.length === 0) {
+          this.nemaVoznji = true;
+        } else {
+          this.nemaVoznji = false;
+        }
       } catch (error) {
         console.error("Error fetching rides:", error);
-        this.nemaVoznji = true; // Show no rides message on error
+        this.nemaVoznji = true; // If there's an error, assume no rides were found
       }
     },
   },
 };
 </script>
-<style >
+
+<style>
 .auth-container {
   color: white;
   background-color: black;
@@ -66,7 +88,6 @@ export default {
   border-radius: 10px;
   margin: 20px;
 }
-
 
 label {
   margin-bottom: 10px;
@@ -88,6 +109,15 @@ button {
   cursor: pointer;
   text-align: center;
 }
-</style>
 
+.success {
+  color: green;
+  margin-top: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+</style>
 
