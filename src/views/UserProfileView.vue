@@ -23,8 +23,9 @@ export default {
     },
     async created() {
         const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
-        const userId = this.$store.state.userId; // Assuming you store userId in Vuex or somewhere globally
-        
+        // const userId = this.$store.state.userId; // Assuming you store userId in Vuex or somewhere globally
+        const userId = localStorage.getItem('userId');
+
         try {
             // Fetch user rides
             const response = await axios.get(`/api/voznja/user/${userId}`, {
