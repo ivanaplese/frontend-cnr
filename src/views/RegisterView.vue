@@ -33,7 +33,7 @@ export default {
     async register() {
       try {
 
-        const response = await axios.post('https://cars-n-rides-backend.vercel.app/api/register', {
+        const response = await axios.post('http://localhost:8080/api/register', {
         // const response = await axios.post('/api/register', {
           username: this.formData.username,
           password: this.formData.password
@@ -63,3 +63,4 @@ export default {
   margin-top: 10px;
 }
 </style>
+
