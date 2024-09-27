@@ -41,6 +41,13 @@ export default {
 
         this.successMessage = 'Registration successful!';
         this.errorMessage = '';  // Clear any previous error messages
+
+
+        // Redirect to login page after successful registration
+        setTimeout(() => {
+          this.$router.push({ name: 'login' });
+        }, 2000);  // Wait 2 seconds before redirecting
+        
         console.log('Registration successful', response.data);
       } catch (error) {
         this.errorMessage = 'Registration failed. Please try again.';
