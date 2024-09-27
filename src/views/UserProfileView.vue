@@ -34,7 +34,7 @@
     this.loading = true;
     try {
         const username = localStorage.getItem("username");
-const response = await axios.get(`http://localhost:8080/api/user-rides?username=${username}`);
+const response = await axios.get(`http://localhost:8080/api/user-rides`);
 
       
       this.rides = response.data;
