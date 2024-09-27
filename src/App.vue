@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav id="nav" v-if="showNavbar" class="navbar navbar-expand-lg bg-body-tertiary">>
+    <nav id="nav" v-if="showNavbar" class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">cars 'n' rides</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -8,33 +8,35 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav me-auto">
             <li class="nav-item">
               <router-link to="/" class="nav-link active" aria-current="page">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/pretraži" class="nav-link active" aria-current="page">Pretraži</router-link>
+              <router-link to="/pretraži" class="nav-link active">Pretraži</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/dodaj" class="nav-link active" aria-current="page">Dodaj</router-link>
+              <router-link to="/dodaj" class="nav-link active">Dodaj</router-link>
             </li>
+          </ul>
 
-             <!-- Prikaži samo ako je korisnik prijavljen -->
-             <li class="nav-item" v-if="isLoggedIn">
+          <!-- Right-aligned section -->
+          <ul class="navbar-nav ms-auto">
+            <!-- Show if the user is logged in -->
+            <li class="nav-item" v-if="isLoggedIn">
               <span class="nav-link">Welcome, {{ username }}!</span>
             </li>
             <li class="nav-item" v-if="isLoggedIn">
               <a href="#" @click="logout" class="nav-link">Logout</a>
             </li>
 
-            <!-- Prikaži samo ako korisnik NIJE prijavljen -->
+            <!-- Show if the user is NOT logged in -->
             <li class="nav-item" v-if="!isLoggedIn">
               <router-link to="/login" class="nav-link">Login</router-link>
             </li>
             <li class="nav-item" v-if="!isLoggedIn">
               <router-link to="/register" class="nav-link">Register</router-link>
             </li>
-
           </ul>
         </div>
       </div>
@@ -48,22 +50,23 @@ export default {
   data() {
     return {
       showNavbar: true,
-      username: "", // Sprema korisničko ime
-      isLoggedIn: false, // Provjerava je li korisnik prijavljen
+      username: "", // Stores the username
+      isLoggedIn: false, // Checks if the user is logged in
     };
   },
   mounted() {
-    // Provjeri je li korisnik prijavljen na početku
+    // Check login status on mount
     this.checkLoginStatus();
 
+    // Recheck login status after each route change
     this.$router.afterEach(() => {
-    this.checkLoginStatus();
-  });
+      this.checkLoginStatus();
+    });
   },
   methods: {
     checkLoginStatus() {
       const token = localStorage.getItem("authToken");
-      const username = localStorage.getItem("username"); // Spremljeno korisničko ime
+      const username = localStorage.getItem("username"); // Retrieve stored username
 
       if (token && username) {
         this.isLoggedIn = true;
@@ -74,15 +77,15 @@ export default {
       }
     },
     logout() {
-      // Ukloni token i korisničko ime iz localStorage
+      // Remove token and username from localStorage
       localStorage.removeItem("authToken");
       localStorage.removeItem("username");
 
-      // Resetiraj stanje aplikacije
+      // Reset app state
       this.isLoggedIn = false;
       this.username = "";
 
-      // Preusmjeri na početnu stranicu
+      // Redirect to home page
       this.$router.push({ name: 'home' });
     },
   },
@@ -111,7 +114,7 @@ export default {
   color: black !important;
 }
 span.nav-link {
-  color: green !important; // Posebno istakni korisničko ime
+  color: green !important; // Highlight the username
 }
 
 .nav-link.router-link-exact-active {
@@ -148,36 +151,4 @@ body {
   cursor: pointer;
   text-align: center;
 }
-
-body {
-  background-color: black;
-  color: white;
-}
-
-.container {
-  background-color: black;
-  color: white;
-}
-
-.form-label {
-  color: white;
-}
-
-.form-control {
-  background-color: black;
-  color: white;
-  border: 1px solid white;
-  border-radius: 5px;
-}
-
-.btn {
-  background-color: green;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-align: center;
-}
-
 </style>
