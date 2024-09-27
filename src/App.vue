@@ -39,6 +39,9 @@
             <li class="nav-item" v-if="!isLoggedIn">
               <router-link to="/register" class="nav-link">Register</router-link>
             </li>
+            <li class="nav-item" v-if="isLoggedIn">
+  <router-link to="/profile" class="nav-link">Profil</router-link>
+</li>
           </ul>
         </div>
       </div>
