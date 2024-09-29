@@ -61,8 +61,8 @@ this.errorMessage = "";
 }
 
 const token = localStorage.getItem("authToken");
-axios.post("http://localhost:8080/api/voznja", {
-// axios.post("${process.env.VUE_APP_API_URL}/api/voznja", {
+// axios.post("http://localhost:8080/api/voznja", {
+  axios.post(`${process.env.VUE_APP_API_URL}/api/voznja`, {
 
   origin: this.voznja.polaziste,
     destination: this.voznja.odrediste,
