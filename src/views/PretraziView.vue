@@ -54,7 +54,7 @@ export default {
     async pretrazi() {
       try {
         // Make a GET request to the backend
-        const response = await axios.get("http://localhost:8080/api/voznja", {
+        const response = await axios.get("${process.env.VUE_APP_API_URL}/api/voznja", {
           params: {
             origin: this.polaziste,
             destination: this.odrediste,

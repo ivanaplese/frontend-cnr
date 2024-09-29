@@ -33,7 +33,7 @@ export default {
     async register() {
       try {
 
-        const response = await axios.post('http://localhost:8080/api/register', {
+        const response = await axios.post('${process.env.VUE_APP_API_URL}/api/register', {
           username: this.formData.username,
           password: this.formData.password
         });
