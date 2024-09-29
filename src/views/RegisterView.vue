@@ -33,7 +33,8 @@ export default {
     async register() {
       try {
 
-        const response = await axios.post('${process.env.VUE_APP_API_URL}/api/register', {
+        // const response = await axios.post('${process.env.VUE_APP_API_URL}/api/register', {
+          const response = await axios.get("http://localhost:8080/api/register", {
           username: this.formData.username,
           password: this.formData.password
         });
@@ -59,7 +60,7 @@ export default {
 </script>
 
 <style>
-/* Existing styles... */
+
 .success {
   color: green;
   margin-top: 10px;
