@@ -1,4 +1,4 @@
-<template>
+<!-- '<template>
     <div>
       <h2>Moje vožnje</h2>
       <div v-if="loading">Učitavanje vožnji...</div>
@@ -46,7 +46,8 @@ const response = await axios.get(`http://localhost:8080/api/user-rides`);
   }
 
     }
-  };
+    }
+  
   </script>
   
   <style scoped>
@@ -65,5 +66,5 @@ const response = await axios.get(`http://localhost:8080/api/user-rides`);
     padding: 10px;
     border-radius: 8px;
   }
-  </style>
+  </style>' -->
   
