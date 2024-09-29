@@ -56,13 +56,12 @@ export default {
     return {
       showNavbar: true,
   
-      username: "", // Stores the username
-      isLoggedIn: false, // Checks if the user is logged in
+      username: "", 
+      isLoggedIn: false, 
     };
   },
   mounted() {
     this.checkLoginStatus();
-    // Recheck login status after each route change
     this.$router.afterEach(() => {
 
       this.checkLoginStatus();
@@ -71,7 +70,7 @@ export default {
   methods: {
     checkLoginStatus() {
       const token = localStorage.getItem("authToken");
-      const username = localStorage.getItem("username"); // Retrieve stored username
+      const username = localStorage.getItem("username"); 
       if (token && username) {
         this.isLoggedIn = true;
         this.username = username;
@@ -85,12 +84,10 @@ export default {
       // Remove token and username from localStorage
       localStorage.removeItem("authToken");
       localStorage.removeItem("username");
-     
-      // Reset app state
+        
       this.isLoggedIn = false;
       this.username = "";
-    
-      // Redirect to home page
+ 
       this.$router.push({ name: 'home' });
     },
   },
@@ -118,7 +115,7 @@ export default {
 }
 span.nav-link {
  
-  color: green !important; // Highlight the username
+  color: green !important; 
 }
 .nav-link.router-link-exact-active {
   color: green !important;

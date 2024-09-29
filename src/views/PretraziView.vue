@@ -45,8 +45,8 @@ export default {
       polaziste: "",
       odrediste: "",
       datum: "",
-      rides: [], // To store fetched rides
-      nemaVoznji: false, // To display a message if no rides are found
+      rides: [], 
+      nemaVoznji: false, 
     };
   },
 
@@ -73,7 +73,7 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching rides:", error);
-        this.nemaVoznji = true; // If there's an error, assume no rides were found
+        this.nemaVoznji = true; 
       }
     },
   },

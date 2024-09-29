@@ -46,7 +46,7 @@ export default {
         // Redirect to home page after 2 seconds
         setTimeout(() => {
           this.$router.push({ name: 'home' });
-        }, 2000);
+        }, 1000);
 
       } catch (error) {
         // Clear success message and display error message

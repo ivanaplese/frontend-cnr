@@ -34,24 +34,23 @@ export default {
       try {
 
         const response = await axios.post('http://localhost:8080/api/register', {
-        // const response = await axios.post('/api/register', {
           username: this.formData.username,
           password: this.formData.password
         });
 
         this.successMessage = 'Registration successful!';
-        this.errorMessage = '';  // Clear any previous error messages
+        this.errorMessage = '';  
 
 
         // Redirect to login page after successful registration
         setTimeout(() => {
           this.$router.push({ name: 'login' });
-        }, 2000);  // Wait 2 seconds before redirecting
+        }, 1000);  
         
         console.log('Registration successful', response.data);
       } catch (error) {
         this.errorMessage = 'Registration failed. Please try again.';
-        this.successMessage = '';  // Clear any previous success messages
+        this.successMessage = '';  
         console.error('Registration failed', error);
       }
     }
